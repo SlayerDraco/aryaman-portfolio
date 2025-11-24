@@ -1,12 +1,9 @@
 "use client";
 
-import { useState } from 'react';
-import { tryHackMeStats, hackTheBoxStats, type PlatformStats } from '../data/streakData';
+import { PLATFORM_CONFIG } from '../data/streakData';
+import Image from 'next/image';
 
 export default function StreakMonitorPage() {
-  const [activePlatform, setActivePlatform] = useState<'TryHackMe' | 'HackTheBox'>('TryHackMe');
-  
-  const stats = activePlatform === 'TryHackMe' ? tryHackMeStats : hackTheBoxStats;
 
   return (
     <section className="relative min-h-screen overflow-hidden p-6 py-20 md:p-12">
@@ -21,99 +18,48 @@ export default function StreakMonitorPage() {
             &gt; ./streak_monitor.sh<span className="animate-blink">_</span>
           </h1>
           <p className="mx-auto max-w-2xl font-sans text-lg text-gray-400 md:text-xl">
-            Tracking my journey through capture-the-flag challenges and penetration testing labs
+            Live stats from my cybersecurity journey - Auto-updated from platform APIs
           </p>
         </div>
 
-        {/* Platform Toggle */}
-        <div className="mb-12 flex justify-center animate-fadeInUp [animation-delay:200ms]">
-          <div className="inline-flex rounded-lg border border-neon-green/30 bg-black/40 p-1 backdrop-blur-sm">
-            <button
-              onClick={() => setActivePlatform('TryHackMe')}
-              className={`rounded-md px-6 py-2 font-mono text-sm transition-all duration-300
-                ${activePlatform === 'TryHackMe'
-                  ? 'bg-neon-green/20 text-neon-green shadow-[0_0_20px_theme(colors.neon-green/30)]'
-                  : 'text-gray-400 hover:text-neon-green'
-                }`}
-            >
-              [TryHackMe]
-            </button>
-            <button
-              onClick={() => setActivePlatform('HackTheBox')}
-              className={`rounded-md px-6 py-2 font-mono text-sm transition-all duration-300
-                ${activePlatform === 'HackTheBox'
-                  ? 'bg-neon-green/20 text-neon-green shadow-[0_0_20px_theme(colors.neon-green/30)]'
-                  : 'text-gray-400 hover:text-neon-green'
-                }`}
-            >
-              [HackTheBox]
-            </button>
-          </div>
-        </div>
-
-        {/* Stats Overview Cards */}
-        <div className="mb-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4 animate-fadeInUp [animation-delay:300ms]">
-          <StatCard
-            label="Current Streak"
-            value={`${stats.currentStreak} days`}
-            icon="🔥"
-            highlight
-          />
-          <StatCard
-            label="Longest Streak"
-            value={`${stats.longestStreak} days`}
-            icon="⭐"
-          />
-          <StatCard
-            label={stats.platform === 'TryHackMe' ? 'Total Rooms' : 'Total Machines'}
-            value={stats.platform === 'TryHackMe' ? stats.totalRooms : stats.totalMachines || 0}
-            icon="🎯"
-          />
-          <StatCard
-            label="Rank"
-            value={stats.rank}
-            icon="🏆"
-          />
-        </div>
-
-        {/* Main Content Grid */}
+        {/* Side by Side Platform Cards */}
         <div className="grid gap-8 lg:grid-cols-2">
           
-          {/* Activity Heatmap */}
-          <div className="animate-fadeInUp [animation-delay:400ms]">
-            <ActivityHeatmap stats={stats} />
-          </div>
+          {/* TryHackMe Card */}
+          <PlatformCard
+            title="TryHackMe"
+            username={PLATFORM_CONFIG.tryHackMe.username}
+            profileUrl={PLATFORM_CONFIG.tryHackMe.profileUrl}
+            badgeUrl={PLATFORM_CONFIG.tryHackMe.badgeUrl}
+            platformColor="#00ff9c"
+            icon="🔥"
+            delay="200ms"
+          />
 
-          {/* Weekly Progress Chart */}
-          <div className="animate-fadeInUp [animation-delay:500ms]">
-            <WeeklyProgressChart stats={stats} />
-          </div>
-
-          {/* Category Breakdown */}
-          <div className="animate-fadeInUp lg:col-span-2 [animation-delay:600ms]">
-            <CategoryBreakdown stats={stats} />
-          </div>
+          {/* HackTheBox Card */}
+          <PlatformCard
+            title="HackTheBox"
+            username={PLATFORM_CONFIG.hackTheBox.username}
+            profileUrl={PLATFORM_CONFIG.hackTheBox.profileUrl}
+            platformColor="#9fef00"
+            icon="📦"
+            delay="400ms"
+            isHTB
+          />
 
         </div>
 
-        {/* Profile Link */}
-        <div className="mt-12 text-center animate-fadeInUp [animation-delay:700ms]">
-          <a
-            href={stats.platform === 'TryHackMe' 
-              ? `https://tryhackme.com/p/${stats.username}`
-              : `https://app.hackthebox.com/profile/${stats.username}`
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-md border border-neon-green bg-neon-green/10 px-6 py-3 
-                     font-mono text-sm text-neon-green transition-all duration-300
-                     hover:bg-neon-green hover:text-brand-dark hover:shadow-[0_0_30px_theme(colors.neon-green/50)]"
-          >
-            View {stats.platform} Profile
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+        {/* Info Section */}
+        <div className="mt-12 animate-fadeInUp text-center [animation-delay:600ms]">
+          <div className="mx-auto max-w-3xl rounded-lg border border-neon-green/30 bg-black/40 p-6 backdrop-blur-sm">
+            <p className="font-mono text-sm text-gray-400">
+              <span className="text-neon-green">$</span> Stats are automatically fetched from platform APIs and updated in real-time
+            </p>
+            <p className="mt-2 font-mono text-xs text-gray-600">
+              No manual updates required - just configure your usernames in{' '}
+              <code className="rounded bg-gray-900 px-2 py-1 text-neon-green/70">app/data/streakData.ts</code>
+            </p>
+          </div>
         </div>
 
       </div>
@@ -121,227 +67,127 @@ export default function StreakMonitorPage() {
   );
 }
 
-// Stat Card Component
-interface StatCardProps {
-  label: string;
-  value: string | number;
+// Platform Card Component
+interface PlatformCardProps {
+  title: string;
+  username: string;
+  profileUrl: string;
+  badgeUrl?: string;
+  platformColor: string;
   icon: string;
-  highlight?: boolean;
+  delay: string;
+  isHTB?: boolean;
 }
 
-function StatCard({ label, value, icon, highlight = false }: StatCardProps) {
+function PlatformCard({ 
+  title, 
+  username, 
+  profileUrl, 
+  badgeUrl, 
+  platformColor, 
+  icon, 
+  delay,
+  isHTB = false 
+}: PlatformCardProps) {
   return (
-    <div className={`group relative overflow-hidden rounded-lg border bg-black/40 p-6 backdrop-blur-sm transition-all duration-300
-      ${highlight 
-        ? 'border-neon-green/60 shadow-[0_0_30px_theme(colors.neon-green/20)] hover:border-neon-green hover:shadow-[0_0_40px_theme(colors.neon-green/30)]' 
-        : 'border-neon-green/30 shadow-lg shadow-neon-green/10 hover:border-neon-green/60'
-      }`}>
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="mb-2 font-mono text-sm text-gray-500">{label}</p>
-          <p className="font-mono text-3xl font-bold text-white">{value}</p>
-        </div>
-        <span className="text-3xl">{icon}</span>
-      </div>
-      {highlight && (
-        <div className="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-transparent via-neon-green to-transparent opacity-50"></div>
-      )}
-    </div>
-  );
-}
-
-// Activity Heatmap Component
-function ActivityHeatmap({ stats }: { stats: PlatformStats }) {
-  const maxCount = Math.max(...stats.monthlyActivity.map(d => d.count), 1);
-  
-  return (
-    <div className="rounded-lg border border-neon-green/30 bg-black/40 p-6 backdrop-blur-sm">
-      <h2 className="mb-6 font-mono text-xl text-neon-green">
-        <span className="text-gray-500">//</span> Activity Heatmap
-      </h2>
-      
-      <div className="grid grid-cols-7 gap-2">
-        {stats.monthlyActivity.map((day, index) => {
-          const intensity = day.count / maxCount;
-          const date = new Date(day.date);
-          const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-          
-          return (
-            <div
-              key={index}
-              className="group relative"
-              title={`${day.date}: ${day.count} completions`}
-            >
-              <div
-                className={`aspect-square rounded border transition-all duration-300 hover:scale-110 hover:border-neon-green
-                  ${day.count === 0 
-                    ? 'border-gray-800 bg-gray-900/50' 
-                    : 'border-neon-green/30'
-                  }`}
-                style={{
-                  backgroundColor: day.count > 0 
-                    ? `rgba(0, 255, 156, ${0.2 + intensity * 0.6})` 
-                    : undefined
-                }}
-              >
-                <div className="flex h-full items-center justify-center font-mono text-xs text-gray-600">
-                  {day.count || ''}
-                </div>
-              </div>
-              {/* Tooltip */}
-              <div className="pointer-events-none absolute -top-12 left-1/2 z-20 -translate-x-1/2 whitespace-nowrap 
-                            rounded border border-neon-green/50 bg-black px-2 py-1 font-mono text-xs text-neon-green 
-                            opacity-0 transition-opacity group-hover:opacity-100">
-                {dayName} {day.date.split('-')[2]}: {day.count}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Legend */}
-      <div className="mt-6 flex items-center justify-between border-t border-neon-green/20 pt-4">
-        <span className="font-mono text-xs text-gray-500">Less</span>
-        <div className="flex gap-1">
-          {[0, 0.25, 0.5, 0.75, 1].map((intensity, i) => (
-            <div
-              key={i}
-              className="h-4 w-4 rounded border border-neon-green/30"
-              style={{
-                backgroundColor: intensity === 0 
-                  ? 'rgba(17, 17, 17, 0.5)' 
-                  : `rgba(0, 255, 156, ${0.2 + intensity * 0.6})`
-              }}
-            />
-          ))}
-        </div>
-        <span className="font-mono text-xs text-gray-500">More</span>
-      </div>
-    </div>
-  );
-}
-
-// Weekly Progress Chart
-function WeeklyProgressChart({ stats }: { stats: PlatformStats }) {
-  const maxCompletions = Math.max(...stats.weeklyStats.map(w => w.completions));
-  
-  return (
-    <div className="rounded-lg border border-neon-green/30 bg-black/40 p-6 backdrop-blur-sm">
-      <h2 className="mb-6 font-mono text-xl text-neon-green">
-        <span className="text-gray-500">//</span> Weekly Progress
-      </h2>
-      
-      <div className="space-y-4">
-        {stats.weeklyStats.map((week, index) => {
-          const percentage = (week.completions / maxCompletions) * 100;
-          
-          return (
-            <div key={index} className="group">
-              <div className="mb-2 flex justify-between font-mono text-sm">
-                <span className="text-gray-400">{week.week}</span>
-                <span className="text-neon-green">{week.completions} completions</span>
-              </div>
-              <div className="relative h-8 overflow-hidden rounded border border-neon-green/30 bg-gray-900/50">
-                <div
-                  className="absolute inset-y-0 left-0 bg-gradient-to-r from-neon-green/40 to-neon-green/60 transition-all duration-1000 ease-out"
-                  style={{ 
-                    width: `${percentage}%`,
-                    animation: `slideIn 1s ease-out ${index * 0.1}s both`
-                  }}
-                >
-                  <div className="h-full w-full animate-shimmer bg-gradient-to-r from-transparent via-neon-green/30 to-transparent"></div>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="relative z-10 font-mono text-xs text-white drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]">
-                    {percentage.toFixed(0)}%
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// Category Breakdown Component
-function CategoryBreakdown({ stats }: { stats: PlatformStats }) {
-  const total = stats.categoryBreakdown.reduce((sum, cat) => sum + cat.count, 0);
-  
-  return (
-    <div className="rounded-lg border border-neon-green/30 bg-black/40 p-6 backdrop-blur-sm">
-      <h2 className="mb-6 font-mono text-xl text-neon-green">
-        <span className="text-gray-500">//</span> Category Breakdown
-      </h2>
-      
-      <div className="grid gap-6 md:grid-cols-2">
+    <div 
+      className="group animate-fadeInUp"
+      style={{ animationDelay: delay }}
+    >
+      <div className="overflow-hidden rounded-lg border border-neon-green/30 bg-black/40 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/60 hover:shadow-[0_0_40px_-5px_theme(colors.neon-green/30)]">
         
-        {/* Circular Progress */}
-        <div className="flex items-center justify-center">
-          <div className="relative h-64 w-64">
-            <svg className="h-full w-full -rotate-90 transform" viewBox="0 0 100 100">
-              {stats.categoryBreakdown.reduce((acc, category, index) => {
-                const prevPercentage = acc.offset;
-                const percentage = (category.count / total) * 100;
-                const circumference = 2 * Math.PI * 40;
-                const strokeDasharray = `${(percentage / 100) * circumference} ${circumference}`;
-                const strokeDashoffset = -prevPercentage * circumference / 100;
-                
-                acc.offset += percentage;
-                acc.elements.push(
-                  <circle
-                    key={index}
-                    cx="50"
-                    cy="50"
-                    r="40"
-                    fill="none"
-                    stroke={category.color}
-                    strokeWidth="8"
-                    strokeDasharray={strokeDasharray}
-                    strokeDashoffset={strokeDashoffset}
-                    className="transition-all duration-1000 ease-out hover:stroke-[10] hover:drop-shadow-[0_0_8px_currentColor]"
-                    style={{ animation: `fadeIn 0.5s ease-out ${index * 0.1}s both` }}
-                  />
-                );
-                
-                return acc;
-              }, { offset: 0, elements: [] as JSX.Element[] }).elements}
-            </svg>
-            
-            {/* Center text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center">
-              <span className="font-mono text-4xl font-bold text-white">{total}</span>
-              <span className="font-mono text-sm text-gray-500">Total</span>
+        {/* Header */}
+        <div className="border-b border-neon-green/20 bg-gradient-to-r from-neon-green/10 to-transparent p-6">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span className="text-4xl">{icon}</span>
+              <div>
+                <h2 className="font-mono text-2xl text-neon-green">{title}</h2>
+                <p className="font-mono text-sm text-gray-500">@{username}</p>
+              </div>
             </div>
+            <a
+              href={profileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md border border-neon-green/40 bg-neon-green/10 p-2 transition-all hover:bg-neon-green hover:text-brand-dark"
+              title="View Profile"
+            >
+              <svg className="h-5 w-5 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
 
-        {/* Legend */}
-        <div className="flex flex-col justify-center space-y-3">
-          {stats.categoryBreakdown.map((category, index) => {
-            const percentage = ((category.count / total) * 100).toFixed(1);
-            
-            return (
-              <div
-                key={index}
-                className="group flex items-center justify-between rounded border border-transparent p-2 transition-all hover:border-neon-green/30 hover:bg-neon-green/5"
-                style={{ animation: `fadeIn 0.5s ease-out ${index * 0.1}s both` }}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="h-3 w-3 rounded-full transition-all group-hover:scale-125 group-hover:drop-shadow-[0_0_8px_currentColor]"
-                    style={{ backgroundColor: category.color }}
-                  />
-                  <span className="font-mono text-sm text-gray-300">{category.category}</span>
+        {/* Badge/Graph Container */}
+        <div className="p-6">
+          {!isHTB && badgeUrl ? (
+            // TryHackMe Badge (Auto-updated)
+            <div className="relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4">
+              <div className="flex justify-center">
+                <Image
+                  src={badgeUrl}
+                  alt={`${username} TryHackMe Badge`}
+                  width={800}
+                  height={200}
+                  className="w-full max-w-2xl transition-transform duration-300 group-hover:scale-105"
+                  unoptimized // Important for external badges
+                />
+              </div>
+              <div className="mt-4 text-center">
+                <p className="font-mono text-xs text-gray-500">
+                  <span className="text-neon-green">$</span> Auto-updated from TryHackMe API
+                </p>
+              </div>
+            </div>
+          ) : (
+            // HackTheBox - Profile Card/Widget
+            <div className="space-y-4">
+              <div className="rounded-lg border border-neon-green/20 bg-black/60 p-6">
+                <div className="mb-4 flex items-center justify-between">
+                  <span className="font-mono text-sm text-gray-400">Profile Stats</span>
+                  <span className="font-mono text-xs text-neon-green">Live</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="font-mono text-sm text-gray-500">{percentage}%</span>
-                  <span className="font-mono text-sm font-bold text-neon-green">{category.count}</span>
+                
+                {/* HTB Script Widget */}
+                <div className="relative aspect-video overflow-hidden rounded border border-neon-green/30 bg-gradient-to-br from-brand-dark to-neon-green/5">
+                  <div className="flex h-full flex-col items-center justify-center p-6">
+                    <svg className="mb-4 h-16 w-16 text-neon-green/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                    <p className="text-center font-mono text-sm text-gray-400">
+                      Visit profile to see live stats
+                    </p>
+                    <p className="mt-2 text-center font-mono text-xs text-gray-600">
+                      HTB doesn&apos;t provide public badge API
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-4 text-center">
+                  <p className="font-mono text-xs text-gray-500">
+                    <span className="text-neon-green">$</span> Click profile link above for live stats
+                  </p>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          )}
+
+          {/* Additional Info */}
+          <div className="mt-4 rounded-lg border border-neon-green/20 bg-neon-green/5 p-4">
+            <div className="flex items-center gap-2">
+              <svg className="h-4 w-4 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="font-mono text-xs text-gray-400">
+                {!isHTB 
+                  ? 'Stats update automatically from platform'
+                  : 'Click the link to view detailed HackTheBox profile'
+                }
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
