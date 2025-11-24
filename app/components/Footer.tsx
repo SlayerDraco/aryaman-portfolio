@@ -227,7 +227,7 @@ export default function Footer() {
               </span>
               <span className="text-gray-800">•</span>
               <span className="font-mono text-sm text-gray-500">
-                Built with ❤️ by Pratham Ranka
+                Made with ❤️
 
               </span>
             </div>
