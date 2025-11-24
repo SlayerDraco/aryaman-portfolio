@@ -4,6 +4,7 @@ import { useState } from "react";
 import WhoAmIPage from "./pages/whoAmI";
 import HackerPreloader from "@/components/Pre-Loader";
 import ProjectsPage from "./pages/projects";
+import StreakMonitorPage from "./pages/StreakMonitor";
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,6 +17,7 @@ export default function Page() {
         <LandingPage />
         <WhoAmIPage />
         <ProjectsPage />
+        <StreakMonitorPage />
       </>
     );
   // }
