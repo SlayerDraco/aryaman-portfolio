@@ -134,7 +134,7 @@ export default function LandingPage() {
           </a>
           
           <a 
-            href="https://www.linkedin.com/in/aryaman-malik-a3342126b/"
+            href="https://www.linkedin.com/in/4ryaman-mal1k/"
             target="_blank"
             rel="noopener noreferrer"
             className="group animate-fadeInUp rounded-lg border border-neon-green/30 bg-black/40 px-8 py-4 font-mono text-base text-gray-300 backdrop-blur-sm
