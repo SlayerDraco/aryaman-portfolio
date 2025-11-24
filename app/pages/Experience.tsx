@@ -23,7 +23,7 @@ export default function ExperiencePage() {
         
         {/* Enhanced Header with Stats */}
         <div className="mb-16 animate-fadeInUp">
-          <div className="mb-8 flex items-end justify-between">
+          <div className="mb-8 flex flex-col items-center justify-center text-center">
             <div>
               <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
                 &gt; experience.log<span className="animate-blink">_</span>
@@ -31,7 +31,7 @@ export default function ExperiencePage() {
             </div>
             
             {/* Inline Stats */}
-            <div className="hidden md:flex gap-8">
+            <div className="flex gap-8 mt-6">
               <div>
                 <div className="font-mono text-3xl text-neon-green">{yearsOfExperience}+</div>
                 <div className="font-mono text-xs text-gray-600 uppercase tracking-wider">Years</div>
