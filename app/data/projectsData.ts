@@ -3,7 +3,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  category: 'Cybersecurity' | 'Hardware' | 'VLSI';
+  category: 'Cybersecurity' | 'Hardware' | 'VLSI' | 'Web Development';
   tags: string[];
   image: string;
   github?: string;
@@ -15,36 +15,16 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "Hardware-Based Rootkit Detection",
-    description: "A novel approach to detecting kernel-level rootkits using FPGA-based hardware monitoring to bypass software-level evasion techniques.",
-    category: "Cybersecurity",
-    tags: ["FPGA", "Kernel Security", "Hardware Security", "Verilog"],
-    image: "/projects/rootkit-detection.jpg",
-    github: "https://github.com/yourusername/rootkit-detection",
+    title: "Mines Game (Stake-Inspired)",
+    description: "Interactive web-based mines game inspired by Stake casino. Features a dynamic grid system with randomized mine placement and strategic gameplay mechanics.",
+    category: "Web Development",
+    tags: ["HTML", "CSS", "JavaScript", "Game Logic", "DOM Manipulation"],
+    image: "/projects/mines-game.jpg",
+    github: "https://github.com/SlayerDraco/Mines-Game",
+    demo: "https://slayerdraco.github.io/Mines-Game/",
     year: "2025"
-  },
-  {
-    id: 2,
-    title: "Side-Channel Attack Framework",
-    description: "Comprehensive framework for power analysis attacks on cryptographic implementations, featuring real-time oscilloscope integration.",
-    category: "Hardware",
-    tags: ["Side-Channel", "Cryptography", "Power Analysis", "Python"],
-    image: "/projects/side-channel.jpg",
-    github: "https://github.com/yourusername/side-channel",
-    demo: "https://demo.example.com",
-    year: "2024"
-  },
-  {
-    id: 3,
-    title: "RISC-V Secure Processor",
-    description: "Custom RISC-V processor core with hardware-based security extensions including secure boot and encrypted memory access.",
-    category: "VLSI",
-    tags: ["RISC-V", "SystemVerilog", "Security", "ASIC Design"],
-    image: "/projects/riscv-processor.jpg",
-    github: "https://github.com/yourusername/riscv-secure",
-    year: "2024"
   },
 ];
 
 // Available categories for filtering
-export const categories = ['All', 'Cybersecurity', 'Hardware', 'VLSI'] as const;
+export const categories = ['All','Web Development'] as const;
