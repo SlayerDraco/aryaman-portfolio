@@ -22,25 +22,25 @@ export default function StreakMonitorPage() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
-    async function fetchTHMStats() {
+    async function fetchStats() {
       try {
         const response = await fetch('/api/thm-stats');
         const result = await response.json();
         
-        if (result.success) {
-          setThmStats(result.data);
+        if (result.success && result.thm) {
+          setThmStats(result.thm);
         } else {
           setError(true);
         }
       } catch (err) {
-        console.error('Failed to fetch THM stats:', err);
+        console.error('Failed to fetch stats:', err);
         setError(true);
       } finally {
         setLoading(false);
       }
     }
 
-    fetchTHMStats();
+    fetchStats();
   }, []);
 
   return (
@@ -201,33 +201,52 @@ function PlatformCard({
               </div>
             </div>
           ) : (
-            // HackTheBox - Profile Card/Widget
+            // HackTheBox - Visit Profile
             <div className="space-y-4">
-              <div className="rounded-lg border border-neon-green/20 bg-black/60 p-6">
-                <div className="mb-4 flex items-center justify-between">
-                  <span className="font-mono text-sm text-gray-400">Profile Stats</span>
-                  <span className="font-mono text-xs text-neon-green">Live</span>
-                </div>
-                
-                {/* HTB Script Widget */}
-                <div className="relative aspect-video overflow-hidden rounded border border-neon-green/30 bg-gradient-to-br from-brand-dark to-neon-green/5">
-                  <div className="flex h-full flex-col items-center justify-center p-6">
-                    <svg className="mb-4 h-16 w-16 text-neon-green/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="rounded-lg border border-neon-green/20 bg-black/60 p-8">
+                <div className="flex flex-col items-center justify-center space-y-6">
+                  {/* HTB Logo/Icon */}
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-neon-green/30 bg-neon-green/5">
+                    <svg className="h-10 w-10 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                     </svg>
-                    <p className="text-center font-mono text-sm text-gray-400">
-                      Visit profile to see live stats
-                    </p>
-                    <p className="mt-2 text-center font-mono text-xs text-gray-600">
-                      HTB doesn&apos;t provide public badge API
+                  </div>
+
+                  {/* Message */}
+                  <div className="text-center">
+                    <h3 className="mb-2 font-mono text-xl text-neon-green">Live Stats on Profile</h3>
+                    <p className="font-mono text-sm text-gray-400">
+                      Visit my HackTheBox profile for real-time stats,<br />
+                      achievements, and pwned machines
                     </p>
                   </div>
-                </div>
 
-                <div className="mt-4 text-center">
-                  <p className="font-mono text-xs text-gray-500">
-                    <span className="text-neon-green">$</span> Click profile link above for live stats
-                  </p>
+                  {/* Visit Profile Button */}
+                  <a
+                    href={profileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group/btn relative overflow-hidden rounded-lg border border-neon-green/50 bg-neon-green/10 px-8 py-3 font-mono text-sm text-neon-green transition-all duration-300 hover:scale-105 hover:border-neon-green hover:bg-neon-green hover:text-brand-dark hover:shadow-[0_0_30px_theme(colors.neon-green/50)]"
+                  >
+                    <span className="relative z-10 flex items-center gap-2">
+                      <span>Visit HackTheBox Profile</span>
+                      <svg className="h-4 w-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </span>
+                  </a>
+
+                  {/* Info Box */}
+                  <div className="w-full rounded-lg border border-neon-green/10 bg-neon-green/5 p-4">
+                    <div className="flex items-start gap-3">
+                      <svg className="mt-0.5 h-5 w-5 shrink-0 text-neon-green/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <p className="font-mono text-xs leading-relaxed text-gray-500">
+                        HackTheBox doesn&apos;t provide public APIs. Click the button above to view my current rank, pwned boxes, and CTF progress on their platform.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -240,10 +259,7 @@ function PlatformCard({
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <p className="font-mono text-xs text-gray-400">
-                {!isHTB 
-                  ? 'Stats update automatically from platform'
-                  : 'Click the link to view detailed HackTheBox profile'
-                }
+                Stats update automatically from platform APIs every hour
               </p>
             </div>
           </div>

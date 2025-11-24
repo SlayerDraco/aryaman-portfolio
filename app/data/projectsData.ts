@@ -3,7 +3,7 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  category: 'Cybersecurity' | 'Hardware' | 'VLSI' | 'Full-Stack' | 'Research';
+  category: 'Cybersecurity' | 'Hardware' | 'VLSI';
   tags: string[];
   image: string;
   github?: string;
@@ -44,37 +44,7 @@ export const projects: Project[] = [
     github: "https://github.com/yourusername/riscv-secure",
     year: "2024"
   },
-  {
-    id: 4,
-    title: "Automated Penetration Testing Suite",
-    description: "AI-powered penetration testing tool that automates vulnerability discovery and exploitation chain development.",
-    category: "Cybersecurity",
-    tags: ["Python", "AI/ML", "Pentesting", "Automation"],
-    image: "/projects/pentest-suite.jpg",
-    github: "https://github.com/yourusername/pentest-suite",
-    year: "2024"
-  },
-  {
-    id: 5,
-    title: "Hardware Trojan Detection",
-    description: "Machine learning-based approach to detect hardware trojans in third-party IP cores using golden-free detection methods.",
-    category: "Research",
-    tags: ["ML", "Hardware Security", "IC Design", "TensorFlow"],
-    image: "/projects/trojan-detection.jpg",
-    year: "2023"
-  },
-  {
-    id: 6,
-    title: "Secure IoT Gateway",
-    description: "Full-stack IoT security gateway with hardware-accelerated encryption and real-time threat detection capabilities.",
-    category: "Full-Stack",
-    tags: ["IoT", "React", "Node.js", "Embedded Systems"],
-    image: "/projects/iot-gateway.jpg",
-    github: "https://github.com/yourusername/iot-gateway",
-    demo: "https://demo.example.com",
-    year: "2023"
-  }
 ];
 
 // Available categories for filtering
-export const categories = ['All', 'Cybersecurity', 'Hardware', 'VLSI', 'Full-Stack', 'Research'] as const;
+export const categories = ['All', 'Cybersecurity', 'Hardware', 'VLSI'] as const;

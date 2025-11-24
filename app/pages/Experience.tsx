@@ -202,7 +202,7 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
 
           {/* Hover indicator */}
           <div 
-            className={`absolute left-0 top-0 h-full w-px bg-gradient-to-b from-neon-green/50 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute left-0 top-0 h-full w-px bg-linear-to-b from-neon-green/50 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           ></div>
         </div>
       </div>

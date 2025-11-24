@@ -82,7 +82,7 @@ export default function LandingPage() {
         {/* Download CV Button */}
         {/* Note: Place "Aryaman_Malik_CV.pdf" in your /public folder */}
         <a 
-          href="/Aryaman_Malik_CV.pdf" 
+          href="/Resume_New.pdf" 
           download
           className="group mt-12 inline-block animate-fadeInUp rounded-md border-2 border-neon-green px-6 py-3 font-mono text-base font-bold text-neon-green
                      transition-all duration-300 ease-in-out [animation-delay:1500ms]
