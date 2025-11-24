@@ -23,7 +23,7 @@ export default function StreakMonitorPage() {
         </div>
 
         {/* Side by Side Platform Cards */}
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-6 md:gap-8 lg:grid-cols-2">
           
           {/* TryHackMe Card */}
           <PlatformCard
@@ -81,7 +81,7 @@ function PlatformCard({
       className="group animate-fadeInUp"
       style={{ animationDelay: delay }}
     >
-      <div className="overflow-hidden rounded-lg border border-neon-green/30 bg-black/40 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/60 hover:shadow-[0_0_40px_-5px_theme(colors.neon-green/30)]">
+      <div className="overflow-hidden rounded-lg border border-neon-green/30 bg-black/40 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:border-neon-green/70 hover:shadow-[0_0_50px_-5px_theme(colors.neon-green/40)]">
         
         {/* Header */}
         <div className="border-b border-neon-green/20 bg-gradient-to-r from-neon-green/10 to-transparent p-6">

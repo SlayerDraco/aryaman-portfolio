@@ -63,10 +63,10 @@ export default function LandingPage() {
         </p>
 
         {/* Main Headline */}
-        <h1 className="text-4xl font-light text-gray-300 sm:text-6xl lg:text-8xl">
+        <h1 className="px-4 text-3xl font-light text-gray-300 sm:text-5xl md:text-6xl lg:text-8xl">
           I am
           {/* The Glitch Effect Container */}
-          <div className="glitch-container mt-2">
+          <div className="glitch-container mt-2 md:mt-3">
             {/* data-text attribute is used by the CSS pseudo-elements */}
             <span className="glitch block font-mono font-bold text-white" data-text="Aryaman Malik ">
               Aryaman Malik
@@ -75,7 +75,7 @@ export default function LandingPage() {
         </h1>
 
         {/* Subtitle */}
-        <p className="mt-6 max-w-xl text-xl font-light text-gray-400 md:text-2xl">
+        <p className="mt-6 max-w-xl px-4 text-lg font-light text-gray-400 sm:text-xl md:text-2xl">
           Cybersecurity Analyst & Hardware Junke
         </p>
 
@@ -84,13 +84,17 @@ export default function LandingPage() {
         <a 
           href="/Aryaman_Malik_CV.pdf" 
           download
-          className="mt-12 inline-block rounded-md border-2 border-neon-green px-8 py-3 font-mono text-lg font-bold text-neon-green
-                     transition-all duration-300 ease-in-out
-                     hover:bg-neon-green hover:text-brand-dark 
+          className="group mt-12 inline-block animate-fadeInUp rounded-md border-2 border-neon-green px-6 py-3 font-mono text-base font-bold text-neon-green
+                     transition-all duration-300 ease-in-out [animation-delay:1500ms]
+                     hover:scale-105 hover:bg-neon-green hover:text-brand-dark 
                      hover:shadow-[0_0_20px_theme(colors.neon-green),_0_0_40px_theme(colors.neon-green)]
-                     focus:outline-none focus:ring-2 focus:ring-neon-green focus:ring-offset-2 focus:ring-offset-brand-dark"
+                     focus:outline-none focus:ring-2 focus:ring-neon-green focus:ring-offset-2 focus:ring-offset-brand-dark
+                     sm:px-8 sm:text-lg"
         >
           Download CV
+          <svg className="ml-2 inline-block h-4 w-4 transition-transform group-hover:translate-y-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
         </a>
       </div>
     </section>

@@ -29,7 +29,7 @@ export default function Footer() {
       {/* Subtle top glow */}
       <div className="absolute left-1/2 top-0 h-px w-1/2 -translate-x-1/2 bg-gradient-to-r from-transparent via-neon-green/30 to-transparent"></div>
       
-      <div className="mx-auto max-w-7xl px-6 py-16 md:px-12 md:py-20">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 md:px-12 md:py-20">
         
         {/* Main Content Grid */}
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
@@ -51,11 +51,11 @@ export default function Footer() {
             {/* Primary CTA */}
             <a
               href={`mailto:${contactInfo.email}`}
-              className="group inline-flex items-center gap-3 rounded-md bg-neon-green px-6 py-3 font-mono text-sm font-medium text-brand-dark transition-all hover:bg-neon-green/90 hover:shadow-[0_0_30px_theme(colors.neon-green/30)]"
+              className="group inline-flex items-center gap-3 rounded-md bg-neon-green px-6 py-3 font-mono text-sm font-medium text-brand-dark transition-all duration-300 hover:scale-105 hover:bg-neon-green/90 hover:shadow-[0_0_40px_theme(colors.neon-green/40)]"
             >
               Get in touch
               <svg 
-                className="h-4 w-4 transition-transform group-hover:translate-x-1" 
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"

@@ -48,9 +48,9 @@ export default function ProjectsPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full rounded-lg border border-neon-green/30 bg-black/40 px-4 py-3 pl-10 
-                         font-mono text-gray-300 placeholder-gray-600 backdrop-blur-sm
-                         transition-all duration-300
-                         focus:border-neon-green/80 focus:outline-none focus:ring-2 focus:ring-neon-green/50
+                         font-mono text-sm text-gray-300 placeholder-gray-600 backdrop-blur-sm
+                         transition-all duration-300 md:text-base
+                         focus:scale-[1.01] focus:border-neon-green/80 focus:shadow-[0_0_20px_theme(colors.neon-green/20)] focus:outline-none focus:ring-2 focus:ring-neon-green/50
                          group-hover:border-neon-green/50"
               />
               <svg 
@@ -144,7 +144,7 @@ function ProjectCard({ project, index, hoveredId, setHoveredId }: ProjectCardPro
         className={`relative h-full overflow-hidden rounded-lg border bg-black/40 backdrop-blur-sm
           transition-all duration-500 ease-out
           ${isHovered 
-            ? 'border-neon-green/80 shadow-[0_0_40px_-5px_theme(colors.neon-green/40)] scale-[1.02]' 
+            ? 'border-neon-green/80 shadow-[0_0_50px_-5px_theme(colors.neon-green/50)] scale-[1.03] -translate-y-2' 
             : 'border-neon-green/30 shadow-lg shadow-neon-green/10'
           }`}
       >

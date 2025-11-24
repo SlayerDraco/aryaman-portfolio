@@ -60,21 +60,21 @@ export default function WhoAmIPage() {
 
             {/* 4. Skills Tags Section (MOVED INSIDE) */}
             <div 
-              className="mt-6 flex flex-wrap justify-center gap-2 border-t border-neon-green/20 pt-6 
-                         animate-fadeInUp [animation-delay:500ms]"
+              className="mt-6 flex flex-wrap justify-center gap-2 border-t border-neon-green/20 pt-6"
             >
-              {skills.map((skill) => (
+              {skills.map((skill, index) => (
                 <span 
                   key={skill}
-                  className="rounded-md border border-neon-green/30 bg-neon-green/10 px-3 py-1 
+                  className="animate-fadeInUp rounded-md border border-neon-green/30 bg-neon-green/10 px-3 py-1 
                              font-mono text-xs text-neon-green
                              
                              /* --- NEW HOVER EFFECTS --- */
                              transition-all duration-200
-                             hover:scale-105
+                             hover:scale-110
                              hover:bg-neon-green/20 
                              hover:border-neon-green/70
                              hover:shadow-[0_0_15px_theme(colors.neon-green)]"
+                  style={{ animationDelay: `${500 + index * 100}ms` }}
                 >
                   {skill}
                 </span>

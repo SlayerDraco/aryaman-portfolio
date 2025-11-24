@@ -49,13 +49,13 @@ export default function ExperiencePage() {
         </div>
 
         {/* Filter Tabs - Minimalist */}
-        <div className="mb-16 flex gap-8 animate-fadeInUp [animation-delay:200ms]">
+        <div className="mb-16 flex flex-wrap justify-center gap-6 animate-fadeInUp md:justify-start md:gap-8 [animation-delay:200ms]">
           {(['all', 'work', 'education', 'certification'] as const).map((filter) => (
             <button
               key={filter}
               onClick={() => setActiveFilter(filter)}
-              className={`relative pb-4 font-mono text-sm uppercase tracking-wider transition-colors duration-300
-                ${activeFilter === filter ? 'text-neon-green' : 'text-gray-500 hover:text-gray-300'}`}
+              className={`relative pb-4 font-mono text-xs uppercase tracking-wider transition-all duration-300 sm:text-sm
+                ${activeFilter === filter ? 'scale-105 text-neon-green' : 'text-gray-500 hover:scale-105 hover:text-gray-300'}`}
             >
               {filter}
               {activeFilter === filter && (
@@ -117,11 +117,11 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
         animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`,
       }}
     >
-      <div className="relative overflow-hidden border-l-2 border-gray-800 pl-8 transition-all duration-500 hover:border-neon-green">
+      <div className="relative overflow-hidden border-l-2 border-gray-800 pl-8 transition-all duration-500 hover:border-neon-green hover:pl-10">
         
         {/* Type indicator dot with tooltip */}
         <div className="absolute -left-px top-0 group/dot">
-          <div className={`h-2 w-2 -translate-x-1/2 rounded-full transition-all duration-300 ${isHovered ? 'bg-neon-green shadow-[0_0_12px_theme(colors.neon-green)]' : 'bg-gray-700'}`}></div>
+          <div className={`h-2 w-2 -translate-x-1/2 rounded-full transition-all duration-300 ${isHovered ? 'scale-150 bg-neon-green shadow-[0_0_12px_theme(colors.neon-green)]' : 'bg-gray-700'}`}></div>
           <div className="pointer-events-none absolute -left-2 top-6 whitespace-nowrap opacity-0 transition-opacity group-hover/dot:opacity-100">
             <span className={`font-mono text-xs ${config.color}`}>{config.label}</span>
           </div>

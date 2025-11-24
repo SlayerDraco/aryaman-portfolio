@@ -58,12 +58,21 @@ const config: Config = {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
+        'glow-pulse': {
+          '0%, 100%': { 
+            boxShadow: '0 0 20px rgba(0, 255, 156, 0.3)',
+          },
+          '50%': { 
+            boxShadow: '0 0 40px rgba(0, 255, 156, 0.6), 0 0 60px rgba(0, 255, 156, 0.3)',
+          },
+        },
       },
       animation: {
         glitch: 'glitch 0.25s linear infinite',
         glitch_2: 'glitch_2 1.5s linear infinite',
         blink: 'blink 1s step-end infinite',
         shimmer: 'shimmer 2s linear infinite',
+        'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
       },
     },
   },
