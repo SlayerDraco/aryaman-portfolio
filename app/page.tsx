@@ -12,6 +12,19 @@ export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
+  // Check if user has seen the preloader in this session
+  useEffect(() => {
+    const hasSeenPreloader = sessionStorage.getItem('hasSeenPreloader');
+    if (hasSeenPreloader) {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handlePreloaderComplete = () => {
+    sessionStorage.setItem('hasSeenPreloader', 'true');
+    setIsLoading(false);
+  };
+
   // Show scroll to top button after scrolling down
   useEffect(() => {
     const handleScroll = () => {
@@ -29,11 +42,11 @@ export default function Page() {
     });
   };
 
-  // if (isLoading) {
-  //   // Added the onComplete prop to update the state
-  //   return <HackerPreloader onComplete={() => setIsLoading(false)} />;
-  // } else {
-    return (
+  if (isLoading) {
+    return <HackerPreloader onComplete={handlePreloaderComplete} />;
+  }
+
+  return (
       <>
         <LandingPage />
         <WhoAmIPage />
@@ -62,5 +75,4 @@ export default function Page() {
         </button>
       </>
     );
-  // }
 }

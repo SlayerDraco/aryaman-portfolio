@@ -76,11 +76,7 @@ export default function LandingPage() {
         </p>
 
         {/* Decorative brackets */}
-        <div className="mb-8 flex items-center gap-4 text-neon-green/40">
-          <div className="h-px w-12 bg-gradient-to-r from-transparent to-neon-green/50"></div>
-          <span className="font-mono text-sm">&lt;developer /&gt;</span>
-          <div className="h-px w-12 bg-gradient-to-l from-transparent to-neon-green/50"></div>
-        </div>
+        
 
         {/* Main Headline */}
         <h1 className="group px-4 text-3xl font-light text-gray-300 sm:text-5xl md:text-6xl lg:text-8xl">
