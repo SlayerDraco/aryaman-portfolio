@@ -54,11 +54,16 @@ const config: Config = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0' },
         },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
       animation: {
         glitch: 'glitch 0.25s linear infinite',
         glitch_2: 'glitch_2 1.5s linear infinite',
         blink: 'blink 1s step-end infinite',
+        shimmer: 'shimmer 2s linear infinite',
       },
     },
   },
