@@ -7,10 +7,12 @@ import ProjectsPage from "./pages/projects";
 import StreakMonitorPage from "./pages/StreakMonitor";
 import ExperiencePage from "./pages/Experience";
 import Footer from "./components/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   // Check if user has seen the preloader in this session
   useEffect(() => {
@@ -22,7 +24,11 @@ export default function Page() {
 
   const handlePreloaderComplete = () => {
     sessionStorage.setItem('hasSeenPreloader', 'true');
-    setIsLoading(false);
+    setFadeOut(true);
+    // Wait for fade animation before hiding
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
   };
 
   // Show scroll to top button after scrolling down
@@ -43,11 +49,15 @@ export default function Page() {
   };
 
   if (isLoading) {
-    return <HackerPreloader onComplete={handlePreloaderComplete} />;
+    return (
+      <div className={`transition-opacity duration-500 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+        <HackerPreloader onComplete={handlePreloaderComplete} />
+      </div>
+    );
   }
 
   return (
-      <>
+      <SmoothScroll>
         <LandingPage />
         <WhoAmIPage />
         <ProjectsPage />
@@ -73,6 +83,6 @@ export default function Page() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
           </svg>
         </button>
-      </>
+      </SmoothScroll>
     );
 }
