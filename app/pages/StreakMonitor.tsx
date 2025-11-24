@@ -2,8 +2,46 @@
 
 import { PLATFORM_CONFIG } from '../data/streakData';
 import Image from 'next/image';
+import { useState, useEffect } from 'react';
+
+interface THMStats {
+  username: string;
+  level: number;
+  rank: number;
+  streak: number;
+  completedRoomsNumber: number;
+  badgesNumber: number;
+  topPercentage: number;
+  avatar: string;
+  country: string;
+}
 
 export default function StreakMonitorPage() {
+  const [thmStats, setThmStats] = useState<THMStats | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    async function fetchTHMStats() {
+      try {
+        const response = await fetch('/api/thm-stats');
+        const result = await response.json();
+        
+        if (result.success) {
+          setThmStats(result.data);
+        } else {
+          setError(true);
+        }
+      } catch (err) {
+        console.error('Failed to fetch THM stats:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchTHMStats();
+  }, []);
 
   return (
     <section className="relative min-h-screen overflow-hidden p-6 py-20 md:p-12">
@@ -34,6 +72,9 @@ export default function StreakMonitorPage() {
             platformColor="#00ff9c"
             icon="🔥"
             delay="200ms"
+            stats={thmStats}
+            loading={loading}
+            error={error}
           />
 
           {/* HackTheBox Card */}
@@ -64,6 +105,9 @@ interface PlatformCardProps {
   icon: string;
   delay: string;
   isHTB?: boolean;
+  stats?: THMStats | null;
+  loading?: boolean;
+  error?: boolean;
 }
 
 function PlatformCard({ 
@@ -74,7 +118,10 @@ function PlatformCard({
   platformColor, 
   icon, 
   delay,
-  isHTB = false 
+  isHTB = false,
+  stats = null,
+  loading = false,
+  error = false
 }: PlatformCardProps) {
   return (
     <div 
@@ -110,22 +157,47 @@ function PlatformCard({
         {/* Badge/Graph Container */}
         <div className="p-6">
           {!isHTB && badgeUrl ? (
-            // TryHackMe Badge (Auto-updated)
-            <div className="relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4">
-              <div className="flex justify-center">
-                <Image
-                  src={badgeUrl}
-                  alt={`${username} TryHackMe Badge`}
-                  width={800}
-                  height={200}
-                  className="w-full max-w-2xl transition-transform duration-300 group-hover:scale-105"
-                  unoptimized // Important for external badges
-                />
-              </div>
-              <div className="mt-4 text-center">
-                <p className="font-mono text-xs text-gray-500">
-                  <span className="text-neon-green">$</span> Auto-updated from TryHackMe API
-                </p>
+            <div className="space-y-4">
+              {/* Live Stats Grid */}
+              {loading ? (
+                <div className="rounded-lg border border-neon-green/20 bg-black/60 p-6">
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-5 w-5 animate-spin rounded-full border-2 border-neon-green border-t-transparent"></div>
+                    <p className="font-mono text-sm text-gray-400">Loading stats...</p>
+                  </div>
+                </div>
+              ) : error ? (
+                <div className="rounded-lg border border-red-500/20 bg-black/60 p-6">
+                  <p className="text-center font-mono text-sm text-red-400">Failed to load stats</p>
+                </div>
+              ) : stats ? (
+                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  <StatCard label="Rank" value={`#${stats.rank.toLocaleString()}`} icon="🏆" />
+                  {/* <StatCard label="Level" value={stats.level.toString()} icon="⚡" /> */}
+                  <StatCard label="Streak" value={`${stats.streak}d`} icon="🔥" />
+                  {/* <StatCard label="Rooms" value={stats.completedRoomsNumber.toString()} icon="📦" /> */}
+                  <StatCard label="Top" value={`${stats.topPercentage}%`} icon="📊" />
+                  {/* <StatCard label="Badges" value={stats.badgesNumber.toString()} icon="🎖️" /> */}
+                </div>
+              ) : null}
+
+              {/* TryHackMe Badge Image */}
+              <div className="relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4">
+                <div className="flex justify-center">
+                  <Image
+                    src={badgeUrl}
+                    alt={`${username} TryHackMe Badge`}
+                    width={800}
+                    height={200}
+                    className="w-full max-w-2xl transition-transform duration-300 group-hover:scale-105"
+                    unoptimized
+                  />
+                </div>
+                <div className="mt-4 text-center">
+                  <p className="font-mono text-xs text-gray-500">
+                    <span className="text-neon-green">$</span> Auto-updated from TryHackMe API
+                  </p>
+                </div>
               </div>
             </div>
           ) : (
@@ -177,6 +249,27 @@ function PlatformCard({
           </div>
         </div>
 
+      </div>
+    </div>
+  );
+}
+
+// Stat Card Component
+interface StatCardProps {
+  label: string;
+  value: string;
+  icon: string;
+}
+
+function StatCard({ label, value, icon }: StatCardProps) {
+  return (
+    <div className="group relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4 transition-all duration-300 hover:scale-105 hover:border-neon-green/50 hover:shadow-[0_0_20px_theme(colors.neon-green/20)]">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="mb-1 font-mono text-xs uppercase tracking-wider text-gray-600">{label}</div>
+          <div className="font-mono text-2xl font-bold text-neon-green">{value}</div>
+        </div>
+        <div className="text-2xl opacity-50 transition-opacity group-hover:opacity-100">{icon}</div>
       </div>
     </div>
   );
