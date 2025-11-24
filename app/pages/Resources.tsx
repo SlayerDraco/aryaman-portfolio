@@ -80,7 +80,8 @@ function ResourceCard({ resource }: ResourceCardProps) {
 
   return (
     <div
-      className="group relative flex-shrink-0 w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)]"
+      onClick={handleDownload}
+      className="group relative shrink-0 w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)] cursor-pointer"
     >
       {/* Icon */}
       <div className="mb-4 flex h-20 items-center justify-center rounded-lg bg-black/40 border border-neon-green/10">
@@ -88,7 +89,7 @@ function ResourceCard({ resource }: ResourceCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="mb-4 font-mono text-lg font-bold text-neon-green line-clamp-2 min-h-[3.5rem]">
+      <h3 className="mb-4 font-mono text-lg font-bold text-neon-green line-clamp-2 min-h-14">
         {resource.title}
       </h3>
 
@@ -109,14 +110,11 @@ function ResourceCard({ resource }: ResourceCardProps) {
         </div>
       </div>
 
-      {/* Download Button */}
-      <button
-        onClick={handleDownload}
-        className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-neon-green/30 bg-black/40 text-neon-green/70 font-mono text-sm font-semibold transition-all duration-300 hover:border-neon-green hover:bg-neon-green/10 hover:text-neon-green hover:shadow-[0_0_20px_rgba(0,255,156,0.2)]"
-      >
+      {/* Download Indicator */}
+      <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-neon-green/30 bg-black/40 text-neon-green/70 font-mono text-sm font-semibold transition-all duration-300 group-hover:border-neon-green group-hover:bg-neon-green/10 group-hover:text-neon-green group-hover:shadow-[0_0_20px_rgba(0,255,156,0.2)]">
         <Download className="h-4 w-4" />
-        Download
-      </button>
+        Click to Download
+      </div>
     </div>
   );
 }

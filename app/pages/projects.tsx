@@ -128,15 +128,12 @@ interface ProjectCardProps {
 function ProjectCard({ project, index, hoveredId, setHoveredId }: ProjectCardProps) {
   const isHovered = hoveredId === project.id;
 
-  const handleClick = () => {
-    setHoveredId(isHovered ? null : project.id);
-  };
-
   return (
     <div
-      className="group relative animate-fadeInUp cursor-pointer"
+      className="group relative animate-fadeInUp"
       style={{ animationDelay: `${(index + 5) * 100}ms` }}
-      onClick={handleClick}
+      onMouseEnter={() => setHoveredId(project.id)}
+      onMouseLeave={() => setHoveredId(null)}
     >
 
       {/* Card */}
