@@ -51,7 +51,7 @@ export default function StreakMonitorPage() {
         
         {/* Header Section */}
         <div className="mb-12 animate-fadeInUp text-center">
-          <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
+          <h1 className="mb-4 font-mono text-2xl text-neon-green sm:text-4xl md:text-5xl lg:text-6xl break-words">
             &gt; ./streak_monitor.sh<span className="animate-blink">_</span>
           </h1>
         </div>

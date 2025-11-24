@@ -38,14 +38,14 @@ export default function ResourcesPage() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-brand-dark py-20">
+    <section className="relative overflow-hidden bg-brand-dark py-12 sm:py-20">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,255,156,0.05)_0%,rgba(10,10,10,0)_50%)]" aria-hidden="true"></div>
       
       <div className="relative z-10 w-full">
         
         {/* Header */}
-        <div className="mb-16 text-center animate-fadeInUp px-6">
+        <div className="mb-6 sm:mb-16 text-center animate-fadeInUp px-4 sm:px-6">
           <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
             &gt; resources.db<span className="animate-blink">_</span>
           </h1>
@@ -54,10 +54,10 @@ export default function ResourcesPage() {
         {/* Full-width Continuous Carousel */}
         <div 
           ref={scrollRef}
-          className="overflow-x-hidden animate-fadeInUp py-8 [animation-delay:200ms]"
+          className="overflow-x-hidden animate-fadeInUp pb-8 sm:py-8 [animation-delay:200ms]"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          <div className="flex gap-6 px-6">
+          <div className="flex gap-4 px-4 sm:gap-6 sm:px-6">
             {infiniteResources.map((resource, index) => (
               <ResourceCard key={`${resource.id}-${index}`} resource={resource} />
             ))}
@@ -81,7 +81,7 @@ function ResourceCard({ resource }: ResourceCardProps) {
   return (
     <div
       onClick={handleDownload}
-      className="group relative shrink-0 w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)] cursor-pointer"
+      className="group relative shrink-0 w-[280px] sm:w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-4 sm:p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)] cursor-pointer"
     >
       {/* Icon */}
       <div className="mb-4 flex h-20 items-center justify-center rounded-lg bg-black/40 border border-neon-green/10">
@@ -89,31 +89,32 @@ function ResourceCard({ resource }: ResourceCardProps) {
       </div>
 
       {/* Title */}
-      <h3 className="mb-4 font-mono text-lg font-bold text-neon-green line-clamp-2 min-h-14">
+      <h3 className="mb-3 sm:mb-4 font-mono text-base sm:text-lg font-bold text-neon-green line-clamp-2 min-h-12 sm:min-h-14">
         {resource.title}
       </h3>
 
       {/* Meta Info */}
-      <div className="mb-4 space-y-2">
+      <div className="mb-3 sm:mb-4 space-y-2">
         <div className="flex items-center justify-between font-mono text-xs text-gray-500">
-          <div className="flex items-center gap-2">
-            <Calendar className="h-3.5 w-3.5" />
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             {new Date(resource.uploadDate).toLocaleDateString('en-US', { 
               month: 'short', 
               year: 'numeric' 
             })}
           </div>
           <div className="flex items-center gap-1">
-            <HardDrive className="h-3.5 w-3.5" />
+            <HardDrive className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
             <span>{resource.size}</span>
           </div>
         </div>
       </div>
 
       {/* Download Indicator */}
-      <div className="flex items-center justify-center gap-2 px-4 py-3 rounded-lg border border-neon-green/30 bg-black/40 text-neon-green/70 font-mono text-sm font-semibold transition-all duration-300 group-hover:border-neon-green group-hover:bg-neon-green/10 group-hover:text-neon-green group-hover:shadow-[0_0_20px_rgba(0,255,156,0.2)]">
-        <Download className="h-4 w-4" />
-        Click to Download
+      <div className="flex items-center justify-center gap-2 px-3 py-2 sm:px-4 sm:py-3 rounded-lg border border-neon-green/30 bg-black/40 text-neon-green/70 font-mono text-xs sm:text-sm font-semibold transition-all duration-300 group-hover:border-neon-green group-hover:bg-neon-green/10 group-hover:text-neon-green group-hover:shadow-[0_0_20px_rgba(0,255,156,0.2)]">
+        <Download className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+        <span className="hidden sm:inline">Click to Download</span>
+        <span className="sm:hidden">Download</span>
       </div>
     </div>
   );
