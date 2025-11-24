@@ -33,9 +33,6 @@ export default function ProjectsPage() {
           <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
             &gt; projects<span className="animate-blink">_</span>
           </h1>
-          <p className="mx-auto max-w-2xl font-sans text-lg text-gray-400 md:text-xl">
-            A collection of security research, hardware projects, and explorations at the intersection of silicon and software
-          </p>
         </div>
 
         {/* Search Bar */}
@@ -131,12 +128,15 @@ interface ProjectCardProps {
 function ProjectCard({ project, index, hoveredId, setHoveredId }: ProjectCardProps) {
   const isHovered = hoveredId === project.id;
 
+  const handleClick = () => {
+    setHoveredId(isHovered ? null : project.id);
+  };
+
   return (
     <div
-      className="group relative animate-fadeInUp"
+      className="group relative animate-fadeInUp cursor-pointer"
       style={{ animationDelay: `${(index + 5) * 100}ms` }}
-      onMouseEnter={() => setHoveredId(project.id)}
-      onMouseLeave={() => setHoveredId(null)}
+      onClick={handleClick}
     >
 
       {/* Card */}

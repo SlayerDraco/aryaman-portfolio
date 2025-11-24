@@ -54,9 +54,6 @@ export default function StreakMonitorPage() {
           <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
             &gt; ./streak_monitor.sh<span className="animate-blink">_</span>
           </h1>
-          <p className="mx-auto max-w-2xl font-sans text-lg text-gray-400 md:text-xl">
-            Live stats from my cybersecurity journey - Auto-updated from platform APIs
-          </p>
         </div>
 
         {/* Side by Side Platform Cards */}

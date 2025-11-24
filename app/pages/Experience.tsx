@@ -108,11 +108,18 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
 
   const config = typeConfig[experience.type];
 
+  const handleClick = () => {
+    if (isHovered) {
+      onLeave();
+    } else {
+      onHover();
+    }
+  };
+
   return (
     <div
-      className="group relative"
-      onMouseEnter={onHover}
-      onMouseLeave={onLeave}
+      className="group relative cursor-pointer"
+      onClick={handleClick}
       style={{ 
         animation: `fadeIn 0.6s ease-out ${index * 0.1}s both`,
       }}

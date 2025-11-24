@@ -6,6 +6,7 @@ import HackerPreloader from "@/components/Pre-Loader";
 import ProjectsPage from "./pages/projects";
 import StreakMonitorPage from "./pages/StreakMonitor";
 import ExperiencePage from "./pages/Experience";
+import ResourcesPage from "./pages/Resources";
 import Footer from "./components/Footer";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -61,6 +62,7 @@ export default function Page() {
         <LandingPage />
         <WhoAmIPage />
         <ProjectsPage />
+        <ResourcesPage />
         <StreakMonitorPage />
         <ExperiencePage />
         <Footer />
