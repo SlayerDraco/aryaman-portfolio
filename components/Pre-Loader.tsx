@@ -4,11 +4,9 @@ import { Terminal, CheckCircle, Lock } from 'lucide-react';
 
 // --- Configuration for the animation ---
 const commands = [
-  { text: "$ sudo access --override --user=guest", time: 250, delay: 100 },
-  { text: "$ initializing secure connection...", time: 200, delay: 150 },
-  { text: "$ verifying credentials... [OK]", time: 180, delay: 120 },
-  { text: "$ loading portfolio modules... [DONE]", time: 200, delay: 100 },
-  { text: "$ access granted. welcome.", time: 150, delay: 80 },
+  { text: "$ initializing secure connection...", time: 150, delay: 50 },
+  { text: "$ verifying credentials... [OK]", time: 120, delay: 80 },
+  { text: "$ loading portfolio... [DONE]", time: 100, delay: 60 },
 ];
 
 // --- 1. Typing Effect Component ---
@@ -22,7 +20,7 @@ interface TypingLineProps {
 const TypingLine: React.FC<TypingLineProps> = ({ 
   text, 
   onCompleted, 
-  typingSpeed = 25,
+  typingSpeed = 15,
   delay = 0 
 }) => {
   const [typedText, setTypedText] = useState('');
@@ -47,7 +45,7 @@ const TypingLine: React.FC<TypingLineProps> = ({
     } else {
       const completeTimeout = setTimeout(() => {
         onCompleted();
-      }, 100);
+      }, 50);
       return () => clearTimeout(completeTimeout);
     }
   }, [typedText, text, started, typingSpeed]);
@@ -83,7 +81,7 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
     if (stage === 'init') {
       const timer = setTimeout(() => {
         setStage('typing');
-      }, 400);
+      }, 800);
       return () => clearTimeout(timer);
     }
   }, [stage]);
@@ -109,7 +107,7 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
         setProgress(100);
         setTimeout(() => {
           setStage('complete');
-        }, 200);
+        }, 150);
       }
     }, currentCommand.time);
   };
@@ -119,7 +117,7 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
     if (stage === 'complete') {
       const timer = setTimeout(() => {
         onComplete();
-      }, 600);
+      }, 1200);
       return () => clearTimeout(timer);
     }
   }, [stage, onComplete]);
@@ -128,11 +126,20 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
   if (stage === 'init') {
     return (
       <div className="flex h-screen w-full flex-col items-center justify-center bg-black font-mono">
-        <div className="animate-[fadeIn_0.4s_ease-out]">
-          <Lock className="mb-6 h-20 w-20 text-neon-green/30 animate-pulse" />
-          <div className="flex items-center gap-3">
-            <div className="h-2 w-2 rounded-full bg-neon-green animate-pulse"></div>
-            <p className="text-neon-green/70 text-sm">Initializing secure session...</p>
+        <div className="animate-[fadeIn_0.6s_ease-out]">
+          <div className="mb-8 flex justify-center">
+            <Lock className="h-24 w-24 text-neon-green/40 animate-[pulse_2s_ease-in-out_infinite]" />
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <div className="flex items-center gap-3">
+              <div className="h-2.5 w-2.5 rounded-full bg-neon-green animate-[pulse_1.5s_ease-in-out_infinite]"></div>
+              <p className="text-neon-green/80 text-base tracking-wide">Initializing secure session...</p>
+            </div>
+            <div className="flex gap-1.5 mt-2">
+              <div className="h-1.5 w-1.5 rounded-full bg-neon-green/60 animate-[pulse_1s_ease-in-out_infinite]" style={{animationDelay: '0s'}}></div>
+              <div className="h-1.5 w-1.5 rounded-full bg-neon-green/60 animate-[pulse_1s_ease-in-out_infinite]" style={{animationDelay: '0.2s'}}></div>
+              <div className="h-1.5 w-1.5 rounded-full bg-neon-green/60 animate-[pulse_1s_ease-in-out_infinite]" style={{animationDelay: '0.4s'}}></div>
+            </div>
           </div>
         </div>
       </div>
@@ -211,10 +218,27 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
 
   // Stage 3: COMPLETE
   return (
-    <div className="flex h-screen w-full flex-col items-center justify-center bg-black font-mono animate-[fadeIn_0.4s_ease-out]">
-      <CheckCircle className="mb-6 h-20 w-20 text-neon-green animate-[pulse_1s_ease-in-out]" />
-      <h1 className="mb-2 text-3xl font-bold text-neon-green sm:text-4xl">ACCESS GRANTED</h1>
-      <p className="text-base text-neon-green/60 sm:text-lg">Welcome to the portfolio...</p>
+    <div className="flex h-screen w-full flex-col items-center justify-center bg-black font-mono animate-[fadeIn_0.5s_ease-out]">
+      <div className="relative">
+        {/* Glow effect behind icon */}
+        <div className="absolute inset-0 blur-2xl opacity-50">
+          <CheckCircle className="h-20 w-20 text-neon-green animate-[pulse_1.5s_ease-in-out]" />
+        </div>
+        {/* Main icon */}
+        <CheckCircle className="relative mb-6 h-20 w-20 text-neon-green animate-[pulse_1.5s_ease-in-out]" />
+      </div>
+      
+      <h1 className="mb-3 text-3xl font-bold text-neon-green sm:text-4xl animate-[fadeIn_0.6s_ease-out_0.2s_both]">
+        ACCESS GRANTED
+      </h1>
+      <p className="text-base text-neon-green/70 sm:text-lg animate-[fadeIn_0.6s_ease-out_0.4s_both]">
+        Welcome to the portfolio...
+      </p>
+      
+      {/* Loading bar animation */}
+      <div className="mt-6 w-48 h-1 bg-gray-800 rounded-full overflow-hidden animate-[fadeIn_0.6s_ease-out_0.5s_both]">
+        <div className="h-full bg-neon-green animate-[slideIn_0.8s_ease-out_forwards]"></div>
+      </div>
     </div>
   );
 };
