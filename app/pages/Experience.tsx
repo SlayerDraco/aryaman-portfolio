@@ -15,7 +15,7 @@ export default function ExperiencePage() {
   const yearsOfExperience = currentYear - 2022; // Adjust based on your start year
 
   return (
-    <section className="relative min-h-screen overflow-hidden p-6 py-20 md:p-12">
+    <section className="relative min-h-screen overflow-hidden bg-brand-dark p-6 py-20 md:p-12">
       {/* Subtle background gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,255,156,0.05)_0%,rgba(10,10,10,0)_50%)]" aria-hidden="true"></div>
 

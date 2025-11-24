@@ -43,7 +43,7 @@ export default function StreakMonitorPage() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden p-6 py-20 md:p-12">
+    <section className="relative min-h-screen overflow-hidden bg-brand-dark p-6 py-20 md:p-12">
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,156,0.06)_0%,_rgba(10,10,10,0)_60%)]" aria-hidden="true"></div>
 

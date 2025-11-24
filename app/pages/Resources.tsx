@@ -54,7 +54,7 @@ export default function ResourcesPage() {
         {/* Full-width Continuous Carousel */}
         <div 
           ref={scrollRef}
-          className="overflow-x-hidden animate-fadeInUp [animation-delay:200ms]"
+          className="overflow-x-hidden animate-fadeInUp py-8 [animation-delay:200ms]"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           <div className="flex gap-6 px-6">
@@ -80,7 +80,7 @@ function ResourceCard({ resource }: ResourceCardProps) {
 
   return (
     <div
-      className="group relative flex-shrink-0 w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)] hover:scale-105"
+      className="group relative flex-shrink-0 w-[320px] rounded-xl border border-neon-green/20 bg-gradient-to-b from-gray-900/80 to-black/80 p-6 backdrop-blur-sm transition-all duration-300 hover:border-neon-green/50 hover:shadow-[0_0_30px_rgba(0,255,156,0.15)]"
     >
       {/* Icon */}
       <div className="mb-4 flex h-20 items-center justify-center rounded-lg bg-black/40 border border-neon-green/10">
