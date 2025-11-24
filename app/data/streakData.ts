@@ -1,9 +1,8 @@
-// Configuration for cybersecurity platforms
-// Update these with your actual usernames
+
 export const PLATFORM_CONFIG = {
   tryHackMe: {
     username: 'AryamanMalik', // Replace with your TryHackMe username
-    profileUrl: 'https://tryhackme.com/p/AryamanMalik',
+    profileUrl: 'https://tryhackme.com/p/aryaman007',
     badgeUrl: 'https://tryhackme-badges.s3.amazonaws.com/AryamanMalik.png', // Auto-generated badge
   },
   hackTheBox: {

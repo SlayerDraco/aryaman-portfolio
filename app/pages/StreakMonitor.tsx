@@ -49,19 +49,6 @@ export default function StreakMonitorPage() {
 
         </div>
 
-        {/* Info Section */}
-        <div className="mt-12 animate-fadeInUp text-center [animation-delay:600ms]">
-          <div className="mx-auto max-w-3xl rounded-lg border border-neon-green/30 bg-black/40 p-6 backdrop-blur-sm">
-            <p className="font-mono text-sm text-gray-400">
-              <span className="text-neon-green">$</span> Stats are automatically fetched from platform APIs and updated in real-time
-            </p>
-            <p className="mt-2 font-mono text-xs text-gray-600">
-              No manual updates required - just configure your usernames in{' '}
-              <code className="rounded bg-gray-900 px-2 py-1 text-neon-green/70">app/data/streakData.ts</code>
-            </p>
-          </div>
-        </div>
-
       </div>
     </section>
   );
