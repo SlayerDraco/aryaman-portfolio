@@ -1,7 +1,6 @@
 "use client";
 
 import { PLATFORM_CONFIG } from '../data/streakData';
-import Image from 'next/image';
 import { useState, useEffect } from 'react';
 
 interface THMStats {
@@ -171,34 +170,82 @@ function PlatformCard({
                   <p className="text-center font-mono text-sm text-red-400">Failed to load stats</p>
                 </div>
               ) : stats ? (
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                  <StatCard label="Rank" value={`#${stats.rank.toLocaleString()}`} icon="🏆" />
-                  {/* <StatCard label="Level" value={stats.level.toString()} icon="⚡" /> */}
-                  <StatCard label="Streak" value={`${stats.streak}d`} icon="🔥" />
-                  {/* <StatCard label="Rooms" value={stats.completedRoomsNumber.toString()} icon="📦" /> */}
-                  <StatCard label="Top" value={`${stats.topPercentage}%`} icon="📊" />
-                  {/* <StatCard label="Badges" value={stats.badgesNumber.toString()} icon="🎖️" /> */}
-                </div>
-              ) : null}
+                <>
+                  {/* Main Stats Grid */}
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    <StatCard label="Global Rank" value={`#${stats.rank.toLocaleString()}`} icon="🏆" />
+                    <StatCard label="Level" value={stats.level.toString()} icon="⚡" />
+                    <StatCard label="Streak" value={`${stats.streak}d`} icon="🔥" />
+                    <StatCard label="Top" value={`${stats.topPercentage}%`} icon="📊" />
+                  </div>
 
-              {/* TryHackMe Badge Image */}
-              <div className="relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4">
-                <div className="flex justify-center">
-                  <Image
-                    src={badgeUrl}
-                    alt={`${username} TryHackMe Badge`}
-                    width={800}
-                    height={200}
-                    className="w-full max-w-2xl transition-transform duration-300 group-hover:scale-105"
-                    unoptimized
-                  />
-                </div>
-                <div className="mt-4 text-center">
-                  <p className="font-mono text-xs text-gray-500">
-                    <span className="text-neon-green">$</span> Auto-updated from TryHackMe API
-                  </p>
-                </div>
-              </div>
+                  {/* Progress Bars Section */}
+                  <div className="space-y-3 rounded-lg border border-neon-green/20 bg-black/60 p-6">
+                    <h3 className="mb-4 font-mono text-sm uppercase tracking-wider text-gray-400">Progress Overview</h3>
+                    
+                    {/* Rooms Completed Progress */}
+                    <ProgressBar 
+                      label="Rooms Completed" 
+                      value={stats.completedRoomsNumber} 
+                      max={1000} 
+                      icon="📦"
+                      color="neon-green"
+                    />
+                    
+                    {/* Badges Progress */}
+                    <ProgressBar 
+                      label="Badges Earned" 
+                      value={stats.badgesNumber} 
+                      max={100} 
+                      icon="🎖️"
+                      color="amber"
+                    />
+                    
+                    {/* Ranking Progress (inverse - lower is better) */}
+                    <ProgressBar 
+                      label="Top Rank Percentile" 
+                      value={100 - stats.topPercentage} 
+                      max={100} 
+                      icon="🎯"
+                      color="emerald"
+                    />
+                  </div>
+
+                  {/* Detailed Stats Grid */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="rounded-lg border border-neon-green/20 bg-gradient-to-br from-neon-green/10 to-transparent p-5">
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="text-2xl">🎓</span>
+                        <span className="font-mono text-xs uppercase text-gray-500">Level Progress</span>
+                      </div>
+                      <div className="font-mono text-3xl font-bold text-neon-green">{stats.level}</div>
+                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-800">
+                        <div 
+                          className="h-full bg-gradient-to-r from-neon-green to-emerald-400 transition-all duration-1000"
+                          style={{ width: `${(stats.level % 10) * 10}%` }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    <div className="rounded-lg border border-neon-green/20 bg-gradient-to-br from-neon-green/10 to-transparent p-5">
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="text-2xl">🔥</span>
+                        <span className="font-mono text-xs uppercase text-gray-500">Current Streak</span>
+                      </div>
+                      <div className="font-mono text-3xl font-bold text-neon-green">{stats.streak}</div>
+                      <div className="mt-2 font-mono text-xs text-gray-600">days active</div>
+                    </div>
+                  </div>
+
+                  {/* Auto-update indicator */}
+                  <div className="flex items-center justify-center gap-2 rounded-lg border border-neon-green/10 bg-neon-green/5 p-3">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-neon-green"></div>
+                    <p className="font-mono text-xs text-gray-500">
+                      Auto-updated from TryHackMe API
+                    </p>
+                  </div>
+                </>
+              ) : null}
             </div>
           ) : (
             // HackTheBox - Visit Profile
@@ -235,34 +282,10 @@ function PlatformCard({
                       </svg>
                     </span>
                   </a>
-
-                  {/* Info Box */}
-                  <div className="w-full rounded-lg border border-neon-green/10 bg-neon-green/5 p-4">
-                    <div className="flex items-start gap-3">
-                      <svg className="mt-0.5 h-5 w-5 shrink-0 text-neon-green/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <p className="font-mono text-xs leading-relaxed text-gray-500">
-                        HackTheBox doesn&apos;t provide public APIs. Click the button above to view my current rank, pwned boxes, and CTF progress on their platform.
-                      </p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           )}
-
-          {/* Additional Info */}
-          <div className="mt-4 rounded-lg border border-neon-green/20 bg-neon-green/5 p-4">
-            <div className="flex items-center gap-2">
-              <svg className="h-4 w-4 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              <p className="font-mono text-xs text-gray-400">
-                Stats update automatically from platform APIs every hour
-              </p>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -286,6 +309,50 @@ function StatCard({ label, value, icon }: StatCardProps) {
           <div className="font-mono text-2xl font-bold text-neon-green">{value}</div>
         </div>
         <div className="text-2xl opacity-50 transition-opacity group-hover:opacity-100">{icon}</div>
+      </div>
+    </div>
+  );
+}
+
+// Progress Bar Component
+interface ProgressBarProps {
+  label: string;
+  value: number;
+  max: number;
+  icon: string;
+  color?: 'neon-green' | 'amber' | 'emerald';
+}
+
+function ProgressBar({ label, value, max, icon, color = 'neon-green' }: ProgressBarProps) {
+  const percentage = Math.min((value / max) * 100, 100);
+  
+  const colorClasses = {
+    'neon-green': 'from-neon-green to-emerald-400',
+    'amber': 'from-amber-400 to-orange-400',
+    'emerald': 'from-emerald-400 to-green-400'
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <span className="text-lg">{icon}</span>
+          <span className="font-mono text-xs text-gray-400">{label}</span>
+        </div>
+        <span className="font-mono text-sm font-bold text-neon-green">
+          {value.toLocaleString()} <span className="text-gray-600">/ {max.toLocaleString()}</span>
+        </span>
+      </div>
+      <div className="relative h-3 overflow-hidden rounded-full bg-gray-800/50">
+        <div 
+          className={`h-full bg-gradient-to-r ${colorClasses[color]} transition-all duration-1000 ease-out`}
+          style={{ width: `${percentage}%` }}
+        >
+          <div className="h-full w-full animate-pulse bg-white/10"></div>
+        </div>
+      </div>
+      <div className="text-right font-mono text-xs text-gray-600">
+        {percentage.toFixed(1)}%
       </div>
     </div>
   );
