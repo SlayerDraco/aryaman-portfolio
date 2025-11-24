@@ -10,7 +10,7 @@ export default function StreakMonitorPage() {
       {/* Background glow effect */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,156,0.06)_0%,_rgba(10,10,10,0)_60%)]" aria-hidden="true"></div>
 
-      <div className="relative z-10 mx-auto max-w-7xl">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 pt-16">
         
         {/* Header Section */}
         <div className="mb-12 animate-fadeInUp text-center">

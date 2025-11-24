@@ -25,10 +25,9 @@ export default function ExperiencePage() {
         <div className="mb-16 animate-fadeInUp">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <h1 className="mb-3 font-mono text-5xl tracking-tight text-white md:text-7xl">
-                Experience
+              <h1 className="mb-4 font-mono text-4xl text-neon-green sm:text-5xl md:text-6xl">
+                &gt; experience.log<span className="animate-blink">_</span>
               </h1>
-              <div className="h-px w-24 bg-neon-green"></div>
             </div>
             
             {/* Inline Stats */}
@@ -50,7 +49,7 @@ export default function ExperiencePage() {
         </div>
 
         {/* Filter Tabs - Minimalist */}
-        <div className="mb-16 flex gap-8 border-b border-gray-800 animate-fadeInUp [animation-delay:200ms]">
+        <div className="mb-16 flex gap-8 animate-fadeInUp [animation-delay:200ms]">
           {(['all', 'work', 'education', 'certification'] as const).map((filter) => (
             <button
               key={filter}
