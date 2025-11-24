@@ -6,12 +6,12 @@ import { Terminal, ChevronRight, CheckCircle, XCircle } from 'lucide-react';
 
 // The (harmless, fictional) commands to be typed out
 const commands = [
-  { text: "Booting security bypass protocol...", time: 600 },
-  { text: "Initializing root access... [OK]", time: 400 },
-  { text: "Scanning network vulnerabilities... 0 found.", time: 500 },
-  { text: "Compiling framework modules... [DONE]", time: 400 },
-  { text: "Injecting new interface... [SUCCESS]", time: 600 },
-  { text: "Finalizing... System handshake complete.", time: 400 },
+  { text: "Booting security bypass protocol...", time: 100 },
+  { text: "Initializing root access... [OK]", time: 80 },
+  { text: "Scanning network vulnerabilities... 0 found.", time: 100 },
+  { text: "Compiling framework modules... [DONE]", time: 80 },
+  { text: "Injecting new interface... [SUCCESS]", time: 100 },
+  { text: "Finalizing... System handshake complete.", time: 80 },
 ];
 
 // --- 1. Typing Effect Component ---
@@ -22,7 +22,7 @@ interface TypingLineProps {
   typingSpeed?: number;
 }
 
-const TypingLine: React.FC<TypingLineProps> = ({ text, onCompleted, typingSpeed = 30 }) => {
+const TypingLine: React.FC<TypingLineProps> = ({ text, onCompleted, typingSpeed = 10 }) => {
   const [typedText, setTypedText] = useState('');
 
   useEffect(() => {
@@ -35,7 +35,7 @@ const TypingLine: React.FC<TypingLineProps> = ({ text, onCompleted, typingSpeed 
       // Text finished typing, wait a moment then call onCompleted
       const completeTimeout = setTimeout(() => {
         onCompleted();
-      }, 200); // Short delay after line is finished
+      }, 50); // Reduced further
       return () => clearTimeout(completeTimeout);
     }
   }, [typedText, text, typingSpeed]);
@@ -69,7 +69,7 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
     if (stage === 'denied') {
       const timer = setTimeout(() => {
         setStage('prompt');
-      }, 1200); // Reduced from 2500ms
+      }, 600); // Reduced from 1200ms
       return () => clearTimeout(timer);
     }
   }, [stage]);
@@ -97,7 +97,7 @@ const HackerPreloader: React.FC<HackerPreloaderProps> = ({ onComplete }) => {
     if (stage === 'completed') {
       const timer = setTimeout(() => {
         onComplete();
-      }, 800); // Reduced from 2000ms
+      }, 200); // Minimal delay
       return () => clearTimeout(timer);
     }
   }, [stage, onComplete]);

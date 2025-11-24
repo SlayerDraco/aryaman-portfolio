@@ -135,7 +135,7 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
             <div className="mb-2 flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="mb-1 flex items-center gap-3">
-                  <h3 className={`font-mono text-xl tracking-tight transition-colors duration-300 ${isHovered ? 'text-neon-green' : 'text-white'}`}>
+                  <h3 className={`font-mono text-xl font-bold tracking-tight transition-colors duration-300 ${isHovered ? 'text-neon-green' : 'text-white'}`}>
                     {experience.title}
                   </h3>
                   {experience.current && (
@@ -144,15 +144,15 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
                 </div>
               </div>
 
-              <span className="font-mono text-sm text-gray-600 whitespace-nowrap">
+              <span className="font-mono text-sm font-semibold text-neon-green/70 whitespace-nowrap">
                 {experience.period}
               </span>
             </div>
             
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-              <span className="font-mono text-gray-400">{experience.organization}</span>
-              <span className="text-gray-700">•</span>
-              <span className="font-mono text-gray-500">{experience.location}</span>
+              <span className="font-mono font-semibold text-gray-200">{experience.organization}</span>
+              <span className="text-gray-600">•</span>
+              <span className="font-mono text-gray-400">{experience.location}</span>
               {experience.link && (
                 <>
                   <span className="text-gray-700">•</span>
@@ -170,31 +170,29 @@ function ExperienceCard({ experience, index, isHovered, onHover, onLeave }: Expe
           </div>
 
           {/* Description */}
-          <p className="mb-4 text-sm leading-relaxed text-gray-400">
+          <p className="mb-4 text-sm leading-relaxed text-gray-300 font-medium">
             {experience.description}
           </p>
 
           {/* Achievements - Compact */}
-          <div className="mb-4 space-y-1.5">
+          <div className="mb-4 space-y-2">
             {experience.achievements.slice(0, 3).map((achievement, idx) => (
-              <div key={idx} className="flex gap-2 text-sm text-gray-500">
-                <span className="text-neon-green/50">›</span>
-                <span>{achievement}</span>
+              <div key={idx} className="flex gap-3 text-sm text-gray-300">
+                <span className="text-neon-green font-bold">▸</span>
+                <span className="font-medium">{achievement}</span>
               </div>
             ))}
           </div>
 
           {/* Tech Stack - More compact */}
           {experience.technologies && experience.technologies.length > 0 && (
-            <div className="flex flex-wrap gap-x-3 gap-y-1">
-              {experience.technologies.map((tech, idx) => (
-                <span key={tech}>
-                  <span className="font-mono text-xs text-gray-600 transition-colors hover:text-neon-green">
-                    {tech}
-                  </span>
-                  {idx < experience.technologies!.length - 1 && (
-                    <span className="ml-3 text-gray-800">·</span>
-                  )}
+            <div className="flex flex-wrap gap-2">
+              {experience.technologies.map((tech) => (
+                <span 
+                  key={tech}
+                  className="rounded-md border border-neon-green/20 bg-neon-green/5 px-3 py-1 font-mono text-xs font-medium text-neon-green/80 transition-all duration-200 hover:border-neon-green/40 hover:bg-neon-green/10 hover:text-neon-green hover:shadow-[0_0_10px_theme(colors.neon-green/20)]"
+                >
+                  {tech}
                 </span>
               ))}
             </div>

@@ -134,7 +134,9 @@ export default function LandingPage() {
           </a>
           
           <a 
-            href="#contact"
+            href="https://www.linkedin.com/in/aryaman-malik-a3342126b/"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group animate-fadeInUp rounded-lg border border-neon-green/30 bg-black/40 px-8 py-4 font-mono text-base text-gray-300 backdrop-blur-sm
                        transition-all duration-300 [animation-delay:1700ms]
                        hover:scale-105 hover:border-neon-green/60 hover:bg-neon-green/10 hover:text-neon-green

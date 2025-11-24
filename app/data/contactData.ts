@@ -8,15 +8,15 @@ export const contactInfo = {
   social: {
     github: {
       url: 'https://github.com/SlayerDraco',
-      username: '@SlayerDraco',
+      username: 'SlayerDraco',
     },
     linkedin: {
       url: 'https://www.linkedin.com/in/aryaman-malik-a3342126b/',
-      username: 'in/Aryaman Malik',
+      username: 'Aryaman Malik',
     },
     twitter: {
       url: 'https://x.com/Aryaman0770',
-      username: 'https://x.com/Aryaman0770',
+      username: 'Aryaman0770',
     },
   },
   

@@ -4,7 +4,7 @@ export async function GET() {
 //   console.log('🚀 TryHackMe Stats API Called');
   
   try {
-    console.log('📡 Fetching TryHackMe stats...');
+    // console.log('📡 Fetching TryHackMe stats...');
     const response = await fetch('https://tryhackme.com/api/v2/public-profile?username=aryaman007', {
       next: { revalidate: 3600 } // Cache for 1 hour
     });
@@ -14,7 +14,7 @@ export async function GET() {
     }
 
     const data = await response.json();
-    console.log('✅ TryHackMe data fetched successfully');
+    // console.log('✅ TryHackMe data fetched successfully');
 
     return NextResponse.json({
       success: true,

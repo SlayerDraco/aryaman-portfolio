@@ -49,29 +49,9 @@ export default function Footer() {
             </p>
 
             {/* Primary CTA */}
-            <a
-              href={`mailto:${contactInfo.email}`}
-              className="group inline-flex items-center gap-3 rounded-md bg-neon-green px-6 py-3 font-mono text-sm font-medium text-brand-dark transition-all duration-300 hover:scale-105 hover:bg-neon-green/90 hover:shadow-[0_0_40px_theme(colors.neon-green/40)]"
-            >
-              Get in touch
-              <svg 
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-
+            
             {/* Availability Badge */}
-            <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-neon-green/30 bg-neon-green/10 px-4 py-2">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neon-green opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-neon-green"></span>
-              </span>
-              <span className="font-mono text-xs text-neon-green">{contactInfo.availability}</span>
-            </div>
+
           </div>
 
           {/* Right Column - Contact Info & Links */}
@@ -192,7 +172,7 @@ export default function Footer() {
                         </svg>
                       </div>
                       <div>
-                        <div className="font-mono text-xs text-gray-600">LinkedIn</div>
+                        <div className="font-mono text-xs text-gray-600">Linkedin</div>
                         <div className="font-mono text-sm text-gray-300 transition-colors group-hover:text-neon-green">
                           {contactInfo.social.linkedin.username}
                         </div>
