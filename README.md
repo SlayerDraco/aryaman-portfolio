@@ -1,5 +1,6 @@
 # 🔐 Aryaman Malik - Cybersecurity Portfolio
 
+
 A premium, hacker-themed portfolio website showcasing cybersecurity expertise, projects, and achievements. Built with Next.js 14+, TypeScript, and Tailwind CSS.
 
 ## 🚀 Live Demo
