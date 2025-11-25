@@ -11,7 +11,7 @@ export const contactInfo = {
       username: 'SlayerDraco',
     },
     linkedin: {
-      url: 'https://www.linkedin.com/in/aryaman-malik-a3342126b/',
+      url: 'https://www.linkedin.com/in/4ryaman-mal1k/',
       username: 'Aryaman Malik',
     },
     twitter: {
