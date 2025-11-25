@@ -56,33 +56,63 @@ export default function StreakMonitorPage() {
           </h1>
         </div>
 
-        {/* Side by Side Platform Cards */}
+        {/* Platform Cards Layout - THM on left, HTB and CTF stacked on right */}
         <div className="grid gap-6 md:gap-8 lg:grid-cols-2">
           
-          {/* TryHackMe Card */}
-          <PlatformCard
-            title="TryHackMe"
-            username={PLATFORM_CONFIG.tryHackMe.username}
-            profileUrl={PLATFORM_CONFIG.tryHackMe.profileUrl}
-            badgeUrl={PLATFORM_CONFIG.tryHackMe.badgeUrl}
-            platformColor="#00ff9c"
-            icon="🔥"
-            delay="200ms"
-            stats={thmStats}
-            loading={loading}
-            error={error}
-          />
+          {/* Left Column - TryHackMe Card */}
+          <div className="flex h-full flex-col">
+            <PlatformCard
+              title="TryHackMe"
+              username={PLATFORM_CONFIG.tryHackMe.username}
+              profileUrl={PLATFORM_CONFIG.tryHackMe.profileUrl}
+              badgeUrl={PLATFORM_CONFIG.tryHackMe.badgeUrl}
+              platformColor="#00ff9c"
+              icon="🔥"
+              delay="200ms"
+              stats={thmStats}
+              loading={loading}
+              error={error}
+              fullHeight
+            />
+          </div>
 
-          {/* HackTheBox Card */}
-          <PlatformCard
-            title="HackTheBox"
-            username={PLATFORM_CONFIG.hackTheBox.username}
-            profileUrl={PLATFORM_CONFIG.hackTheBox.profileUrl}
-            platformColor="#9fef00"
-            icon="📦"
-            delay="400ms"
-            isHTB
-          />
+          {/* Right Column - HackTheBox and CTF Card Stacked */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            {/* HackTheBox Card */}
+            <PlatformCard
+              title="HackTheBox"
+              username={PLATFORM_CONFIG.hackTheBox.username}
+              profileUrl={PLATFORM_CONFIG.hackTheBox.profileUrl}
+              platformColor="#9fef00"
+              icon="📦"
+              delay="400ms"
+              isHTB
+            />
+
+            {/* CTF Card */}
+            <div className="animate-fadeInUp" style={{ animationDelay: '600ms' }}>
+              <div className="overflow-hidden rounded-lg border border-neon-green/30 bg-gradient-to-r from-neon-green/10 via-black/60 to-neon-green/10 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:border-neon-green/70 hover:shadow-[0_0_50px_-5px_theme(colors.neon-green/40)]">
+                <div className="p-6 md:p-8">
+                  <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex h-16 w-16 items-center justify-center rounded-full border-2 border-neon-green/40 bg-transparent p-3">
+                        <img src="/image.png" alt="CTF Flag" className="h-full w-full object-contain mix-blend-lighten" />
+                      </div>
+                      <div>
+                        <h3 className="font-mono text-xs uppercase tracking-wider text-gray-500 sm:text-sm">Total CTFs Played</h3>
+                        <div className="mt-1 font-mono text-4xl font-bold text-neon-green sm:text-5xl">5</div>
+                        <div className="mt-1 font-mono text-xs text-gray-600">across all platforms</div>
+                      </div>
+                    </div>
+                    <div className="rounded-lg border border-neon-green/20 bg-black/40 px-6 py-3">
+                      <div className="text-center font-mono text-xs text-gray-600">CHALLENGES</div>
+                      <div className="text-center font-mono text-xl font-bold text-neon-green sm:text-2xl">COMPLETED</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
         </div>
 
@@ -104,6 +134,7 @@ interface PlatformCardProps {
   stats?: THMStats | null;
   loading?: boolean;
   error?: boolean;
+  fullHeight?: boolean;
 }
 
 function PlatformCard({ 
@@ -117,14 +148,15 @@ function PlatformCard({
   isHTB = false,
   stats = null,
   loading = false,
-  error = false
+  error = false,
+  fullHeight = false
 }: PlatformCardProps) {
   return (
     <div 
-      className="group animate-fadeInUp"
+      className="group animate-fadeInUp h-full"
       style={{ animationDelay: delay }}
     >
-      <div className="overflow-hidden rounded-lg border border-neon-green/30 bg-black/40 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:border-neon-green/70 hover:shadow-[0_0_50px_-5px_theme(colors.neon-green/40)]">
+      <div className={`overflow-hidden rounded-lg border border-neon-green/30 bg-black/40 backdrop-blur-sm transition-all duration-500 hover:scale-[1.02] hover:border-neon-green/70 hover:shadow-[0_0_50px_-5px_theme(colors.neon-green/40)] ${fullHeight ? 'h-full flex flex-col' : ''}`}>
         
         {/* Header */}
         <div className="border-b border-neon-green/20 bg-gradient-to-r from-neon-green/10 to-transparent p-6">
@@ -151,7 +183,7 @@ function PlatformCard({
         </div>
 
         {/* Badge/Graph Container */}
-        <div className="p-6">
+        <div className={`p-6 ${fullHeight ? 'flex-1 flex flex-col' : ''}`}>
           {!isHTB && badgeUrl ? (
             <div className="space-y-4">
               {/* Live Stats Grid */}
@@ -168,78 +200,40 @@ function PlatformCard({
                 </div>
               ) : stats ? (
                 <>
-                  {/* Main Stats Grid */}
-                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    <StatCard label="Global Rank" value={`#${stats.rank.toLocaleString()}`} icon="🏆" />
-                    <StatCard label="Level" value={stats.level.toString()} icon="⚡" />
-                    <StatCard label="Streak" value={`${stats.streak}d`} icon="🔥" />
-                    <StatCard label="Top" value={`${stats.topPercentage}%`} icon="📊" />
-                  </div>
-
-                  {/* Progress Bars Section */}
-                  <div className="space-y-3 rounded-lg border border-neon-green/20 bg-black/60 p-6">
-                    <h3 className="mb-4 font-mono text-sm uppercase tracking-wider text-gray-400">Progress Overview</h3>
-                    
-                    {/* Rooms Completed Progress */}
-                    <ProgressBar 
-                      label="Rooms Completed" 
-                      value={stats.completedRoomsNumber} 
-                      max={1000} 
-                      icon="📦"
-                      color="neon-green"
-                    />
-                    
-                    {/* Badges Progress */}
-                    <ProgressBar 
-                      label="Badges Earned" 
-                      value={stats.badgesNumber} 
-                      max={100} 
-                      icon="🎖️"
-                      color="amber"
-                    />
-                    
-                    {/* Ranking Progress (inverse - lower is better) */}
-                    <ProgressBar 
-                      label="Top Rank Percentile" 
-                      value={100 - stats.topPercentage} 
-                      max={100} 
-                      icon="🎯"
-                      color="emerald"
-                    />
-                  </div>
-
-                  {/* Detailed Stats Grid */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="rounded-lg border border-neon-green/20 bg-gradient-to-br from-neon-green/10 to-transparent p-5">
-                      <div className="mb-2 flex items-center gap-2">
-                        <span className="text-2xl">🎓</span>
-                        <span className="font-mono text-xs uppercase text-gray-500">Level Progress</span>
+                  {/* Main Stats Grid - Large Cards */}
+                  <div className="space-y-4">
+                    {/* First Row - Global Rank and Top Percentile */}
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      {/* Global Rank */}
+                      <div className="group relative overflow-hidden rounded-lg border border-neon-green/30 bg-gradient-to-br from-neon-green/10 to-transparent p-6 transition-all duration-300 hover:scale-105 hover:border-neon-green/60 hover:shadow-[0_0_30px_theme(colors.neon-green/30)]">
+                        <div className="mb-3 flex items-center gap-2">
+                          <span className="text-3xl">🏆</span>
+                          <span className="font-mono text-sm uppercase tracking-wider text-gray-500">Global Rank</span>
+                        </div>
+                        <div className="font-mono text-2xl font-bold text-neon-green break-all sm:text-3xl lg:text-4xl">#{stats.rank.toLocaleString()}</div>
+                        <div className="mt-2 font-mono text-xs text-gray-600">worldwide</div>
                       </div>
-                      <div className="font-mono text-3xl font-bold text-neon-green">{stats.level}</div>
-                      <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-800">
-                        <div 
-                          className="h-full bg-gradient-to-r from-neon-green to-emerald-400 transition-all duration-1000"
-                          style={{ width: `${(stats.level % 10) * 10}%` }}
-                        ></div>
+
+                      {/* Top Percentage */}
+                      <div className="group relative overflow-hidden rounded-lg border border-neon-green/30 bg-gradient-to-br from-neon-green/10 to-transparent p-6 transition-all duration-300 hover:scale-105 hover:border-neon-green/60 hover:shadow-[0_0_30px_theme(colors.neon-green/30)]">
+                        <div className="mb-3 flex items-center gap-2">
+                          <span className="text-3xl">📊</span>
+                          <span className="font-mono text-sm uppercase tracking-wider text-gray-500">Top Percentile</span>
+                        </div>
+                        <div className="font-mono text-4xl font-bold text-neon-green">{stats.topPercentage}%</div>
+                        <div className="mt-2 font-mono text-xs text-gray-600">of all users</div>
                       </div>
                     </div>
 
-                    <div className="rounded-lg border border-neon-green/20 bg-gradient-to-br from-neon-green/10 to-transparent p-5">
-                      <div className="mb-2 flex items-center gap-2">
-                        <span className="text-2xl">🔥</span>
-                        <span className="font-mono text-xs uppercase text-gray-500">Current Streak</span>
+                    {/* Second Row - Current Streak (Full Width) */}
+                    <div className="group relative overflow-hidden rounded-lg border border-neon-green/30 bg-gradient-to-br from-neon-green/10 to-transparent p-6 mt-8 md:p-10 md:mt-12 transition-all duration-300 hover:scale-105 hover:border-neon-green/60 hover:shadow-[0_0_30px_theme(colors.neon-green/30)]">
+                      <div className="mb-4 flex items-center gap-2 md:mb-6">
+                        <span className="text-3xl md:text-4xl">🔥</span>
+                        <span className="font-mono text-sm uppercase tracking-wider text-gray-500 md:text-base">Current Streak</span>
                       </div>
-                      <div className="font-mono text-3xl font-bold text-neon-green">{stats.streak}</div>
-                      <div className="mt-2 font-mono text-xs text-gray-600">days active</div>
+                      <div className="font-mono text-4xl font-bold text-neon-green md:text-5xl lg:text-6xl">{stats.streak}</div>
+                      <div className="mt-3 font-mono text-xs text-gray-600 md:mt-4 md:text-sm">days active</div>
                     </div>
-                  </div>
-
-                  {/* Auto-update indicator */}
-                  <div className="flex items-center justify-center gap-2 rounded-lg border border-neon-green/10 bg-neon-green/5 p-3">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-neon-green"></div>
-                    <p className="font-mono text-xs text-gray-500">
-                      Auto-updated from TryHackMe API
-                    </p>
                   </div>
                 </>
               ) : null}
@@ -290,67 +284,4 @@ function PlatformCard({
   );
 }
 
-// Stat Card Component
-interface StatCardProps {
-  label: string;
-  value: string;
-  icon: string;
-}
 
-function StatCard({ label, value, icon }: StatCardProps) {
-  return (
-    <div className="group relative overflow-hidden rounded-lg border border-neon-green/20 bg-black/60 p-4 transition-all duration-300 hover:scale-105 hover:border-neon-green/50 hover:shadow-[0_0_20px_theme(colors.neon-green/20)]">
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="mb-1 font-mono text-xs uppercase tracking-wider text-gray-600">{label}</div>
-          <div className="font-mono text-2xl font-bold text-neon-green">{value}</div>
-        </div>
-        <div className="text-2xl opacity-50 transition-opacity group-hover:opacity-100">{icon}</div>
-      </div>
-    </div>
-  );
-}
-
-// Progress Bar Component
-interface ProgressBarProps {
-  label: string;
-  value: number;
-  max: number;
-  icon: string;
-  color?: 'neon-green' | 'amber' | 'emerald';
-}
-
-function ProgressBar({ label, value, max, icon, color = 'neon-green' }: ProgressBarProps) {
-  const percentage = Math.min((value / max) * 100, 100);
-  
-  const colorClasses = {
-    'neon-green': 'from-neon-green to-emerald-400',
-    'amber': 'from-amber-400 to-orange-400',
-    'emerald': 'from-emerald-400 to-green-400'
-  };
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="text-lg">{icon}</span>
-          <span className="font-mono text-xs text-gray-400">{label}</span>
-        </div>
-        <span className="font-mono text-sm font-bold text-neon-green">
-          {value.toLocaleString()} <span className="text-gray-600">/ {max.toLocaleString()}</span>
-        </span>
-      </div>
-      <div className="relative h-3 overflow-hidden rounded-full bg-gray-800/50">
-        <div 
-          className={`h-full bg-gradient-to-r ${colorClasses[color]} transition-all duration-1000 ease-out`}
-          style={{ width: `${percentage}%` }}
-        >
-          <div className="h-full w-full animate-pulse bg-white/10"></div>
-        </div>
-      </div>
-      <div className="text-right font-mono text-xs text-gray-600">
-        {percentage.toFixed(1)}%
-      </div>
-    </div>
-  );
-}
