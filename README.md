@@ -5,7 +5,7 @@ A premium, hacker-themed portfolio website showcasing cybersecurity expertise, p
 
 ## 🚀 Live Demo
 
-Visit the live site: [aryamanmalik.com](https://aryamanmalik.com)
+Visit the live site: [aryaman-malik.in](https://aryaman-malik.in)
 
 
 ---
