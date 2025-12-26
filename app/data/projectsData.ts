@@ -3,11 +3,10 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  category: 'Cybersecurity' | 'Hardware' | 'VLSI' | 'Web Development';
+  category: 'Cybersecurity' | 'Hardware' | 'AI' | 'Web Development';
   tags: string[];
   image: string;
   github?: string;
-  demo?: string;
   year: string;
 }
 
@@ -18,13 +17,23 @@ export const projects: Project[] = [
     title: "Mines Game (Stake-Inspired)",
     description: "Interactive web-based mines game inspired by Stake casino. Features a dynamic grid system with randomized mine placement and strategic gameplay mechanics.",
     category: "Web Development",
-    tags: ["HTML", "CSS", "JavaScript", "Game Logic", "DOM Manipulation"],
+    tags: ["HTML", "CSS", "JavaScript", "Game Logic"],
     image: "/projects/mines-game.jpg",
     github: "https://github.com/SlayerDraco/Mines-Game",
-    demo: "https://slayerdraco.github.io/Mines-Game/",
+    year: "2024"
+  },
+
+  {
+    id: 2,
+    title: "Prompt Enhancer",
+    description: "Interactive web-based mines game inspired by Stake casino. Features a dynamic grid system with randomized mine placement and strategic gameplay mechanics.",
+    category: "AI",
+    tags: ["Python"],
+    image: "/projects/prompt_enhancer.png",
+    github: "https://github.com/SlayerDraco/pr0mp7_3nh4nc3r",
     year: "2025"
   },
 ];
 
 // Available categories for filtering
-export const categories = ['All','Web Development'] as const;
+export const categories = ['All','Web Development','AI','Cybersecurity','Hardware'] as const;
